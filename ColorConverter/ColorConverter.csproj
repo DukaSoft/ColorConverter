@@ -11,6 +11,10 @@
     <Authors>DukaSoft</Authors>
     <Product>$(Authors)'s Color Converter</Product>
     <Title>Color Converter</Title>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DukaSoft/ColorConverter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>DukaSoft Color Converter</PackageTags>
   </PropertyGroup>
 
 </Project>
