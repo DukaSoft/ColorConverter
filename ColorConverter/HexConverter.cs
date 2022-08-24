@@ -11,30 +11,42 @@ public class HexConverter
 	{
 		ConverterReturn ret = new();
 		RGBA? Color = null;
-
-		switch (HexString.Length)
+		try
 		{
-			case 3:
-				Color = LengthThree(HexString);
-				break;
-			case 4:
-				Color = LengthFour(HexString);
-				break;
-			case 6:
-				Color = LengthSix(HexString);
-				break;
-			case 8:
-				Color = LengthEight(HexString);
-				break;
-			default:
-				ret.IsSuccess = false;
-				break;
+
+			switch (HexString.Length)
+			{
+				case 3:
+					Color = LengthThree(HexString);
+					ret.IsSuccess = true;
+					break;
+				case 4:
+					Color = LengthFour(HexString);
+					ret.IsSuccess = true;
+					break;
+				case 6:
+					Color = LengthSix(HexString);
+					ret.IsSuccess = true;
+					break;
+				case 8:
+					Color = LengthEight(HexString);
+					ret.IsSuccess = true;
+					break;
+				default:
+					ret.IsSuccess = false;
+					ret.Error = ErrorType.InvalidLength;
+					break;
+			}
+		}
+		catch(FormatException)
+		{
+			ret.Error = ErrorType.InvalidHex;
 		}
 
-		if (Color is not null)
+		if (ret.IsSuccess)
 		{
-			ret.IsSuccess = true;
-			ret.Color = Color;
+			ret.Error = ErrorType.None;
+			ret.Color = Color!;
 		}
 
 		return ret;
@@ -50,8 +62,6 @@ public class HexConverter
 	/// <returns></returns>
 	private RGBA RGBAColor(string red, string green, string blue, string alpha)
 	{
-
-
 		RGBA rGBA = new()
 		{
 			Red = Convert.FromHexString(red)[0],
@@ -59,8 +69,8 @@ public class HexConverter
 			Blue = Convert.FromHexString(blue)[0],
 			Alpha = Convert.FromHexString(alpha)[0]
 		};
-		rGBA.Alpha /= 255;
 
+		rGBA.Alpha /= 255;
 
 
 		return rGBA;
