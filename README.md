@@ -12,7 +12,8 @@
 ```
 using DukaSoft.ColorConverter;
 
-string HexString = "FFFFFFFF";
+string HexString = "FFF";
+
 HexConverter converter = new();
 
 var result = converter.ConvertToRGBA(HexString);
@@ -23,8 +24,19 @@ if (result.IsSuccess)
 }
 else
 {
-	Console.WriteLine("Something went wrong!");
+	switch (result.Error)
+	{
+		case ErrorType.None:
+			break;
+		case ErrorType.InvalidHex:
+			Console.WriteLine("The string is not a hex code!");
+			break;
+		case ErrorType.InvalidLength:
+			Console.WriteLine("The length of the string is invalid!");
+			break;
+	}
 }
+
 ```
 
 ## This is just a learning project
